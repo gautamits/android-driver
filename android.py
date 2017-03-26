@@ -2,6 +2,10 @@
 import subprocess
 from easygui import *
 import os
+euid = os.geteuid() 
+if euid != 0:
+  raise EnvironmentError, "need to be root"
+  exit()
 proc = subprocess.Popen(["lsusb"], stdout=subprocess.PIPE, shell=False)
 (out, err) = proc.communicate()
 out=out.rstrip("\n")
